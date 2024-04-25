@@ -214,7 +214,7 @@ In the following code snippet, we perform the data preprocessing steps required 
 1. We consider the first 100 elements in `X`.
 2. The next element (101st) is assigned to `y` as the response variable.
 3. For the next iteration:
-   - We append elements from index 2 to 101 into `X`.
+   - We append elements from index 1 to 101 into `X`.
    - We append the 102nd element into `y`.
    
 ```python

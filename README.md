@@ -50,4 +50,33 @@ Yahoo Finance is a popular and widely used financial platform that offers a comp
 - **Financial Planning and Decision-making**: 
   - Yahoo Finance helps users make informed financial planning and investment decisions by providing access to comprehensive financial data, analysis tools, and educational resources.
 -----
-## DATASET:
+## Dataset Preview
+
+![Dataset Preview](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/raw/main/DATASET.png)
+
+## Data Dictionary
+
+The dataset contains the following columns/features:
+
+- **Date**: 
+  - The date on which the stock price data was recorded.
+
+- **Open**: 
+  - The opening price of the stock on a given trading day.
+
+- **High**: 
+  - The highest price at which the stock traded during the trading day.
+
+- **Low**: 
+  - The lowest price at which the stock traded during the trading day.
+
+- **Close**: 
+  - The closing price of the stock on a given trading day.
+
+- **Adjusted Close**: 
+  - The adjusted closing price accounts for factors such as dividends, stock splits, and other corporate actions that affect the stock price.
+
+- **Volume**: 
+  - The total number of shares traded during the trading day.
+
+

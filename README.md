@@ -180,6 +180,30 @@ stock_analysis = StockAnalysis(stock, start_date, end_date)
 #### Download data and visualize
 Plot_graph = stock_analysis.visualize_data()
 data = stock_analysis.download_data()
+### Graph Interpretation:
+
+#### Candlestick Chart (Metastock):
+
+![Metastock Candlestick Chart](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/METASTOCK)
+
+- **Yearwise Candleplot Data**: 
+  - The candlestick chart displays the open, high, low, and adjusted close prices of the 'META' stock for each year from 2016 to 2024.
+  - **Trend Analysis**: 
+    - There is a noticeable increase in the stock prices from 2016 to 2024, indicating a positive trend in the stock performance over the years.
+  
+#### Seasonal Decomposition:
+
+![Seasonal Decomposition](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/Decomposition%20Metastock)
+
+- **Original Data**: 
+  - Represents the original adjusted close prices of the stock.
+- **Trend**: 
+  - Represents the long-term trend or pattern in the stock prices.
+- **Seasonal**: 
+  - Represents the seasonal or periodic fluctuations in the stock prices.
+- **Residual**: 
+  - Represents the random or irregular fluctuations in the stock prices after removing the trend and seasonal components.
+
 
 
 
@@ -246,8 +270,17 @@ The neural network model architecture for stock price prediction is defined as f
     - Number of units: `1`
     - Produces the final output for stock price prediction.
 ____
-### Model Compilation and Training
+### Model Compilation and Training:
 
+In the following code snippet, we compile and train the neural network model for stock price prediction using the `adam` optimizer and `mean_squared_error` loss function:
+
+```python
+from tensorflow.keras.losses import MeanAbsolutePercentageError
+
+mape_metric = MeanAbsolutePercentageError()
+Model.compile(optimizer="adam", loss="mean_squared_error", metrics=[mape_metric])
+Model.fit(X_train, y_train, batch_size=32, epochs=15, validation_data=(X_test, y_test))
+```
 The neural network model for stock price prediction is compiled and trained with the following configuration:
 - **Optimizer**: 
   - `adam` optimizer is used for optimizing the model parameters during training.
@@ -261,17 +294,96 @@ The neural network model for stock price prediction is compiled and trained with
   - `15` epochs are used for training the model.
 - **Validation Data**: 
   - The validation data `(X_test, y_test)` is used to evaluate the model performance during training.
+----
 
-In the following code snippet, we compile and train the neural network model for stock price prediction using the `adam` optimizer and `mean_squared_error` loss function:
+## StockPredictor Class for Predicting Next 14 Days' Stock Prices
 
 ```python
-from tensorflow.keras.losses import MeanAbsolutePercentageError
+class StockPredictor:
+    def __init__(self, model, X_test, y_test):
+        self.model = model
+        self.X_test = X_test
+        self.y_test = y_test
 
-mape_metric = MeanAbsolutePercentageError()
-Model.compile(optimizer="adam", loss="mean_squared_error", metrics=[mape_metric])
-Model.fit(X_train, y_train, batch_size=32, epochs=15, validation_data=(X_test, y_test))
+    def next_14_close(self, days):
+        predictions = []
+        actual = self.X_test[-1]
+        for i in range(days):
+            X_pred = self.model.predict(np.expand_dims(actual, axis=0))
+            predictions.append(X_pred[0][0])
+            print(predictions)
+            actual = np.roll(actual, shift=-1, axis=0)
+            actual[-1] = X_pred[0][0]
+        return predictions
+
+    def generate_predictions_dataframe(self, predictions, start_date):
+        a = scale.inverse_transform(np.array(predictions).reshape(-1, 1))
+        future_dates = pd.date_range(start=start_date, periods=len(predictions), freq='B').tolist()
+        df = pd.DataFrame({'Adj Close': a.reshape(-1)}, index=future_dates)
+        return df
+
+
+stock_predictor = StockPredictor(Model, X_test, y_test)
+predictions = stock_predictor.next_14_close(14)
+start_date = '2024-04-26'
+predictions_df = stock_predictor.generate_predictions_dataframe(predictions, start_date)
+predictions_df
 ```
 
+### Class `StockPredictor`:
+
+This class is designed to predict the next 14 days' closing stock prices using a trained model and the last available data points from the test set.
+
+#### Methods:
+
+1. **`__init__(self, model, X_test, y_test)`**:
+   - Initializes the `StockPredictor` class with a trained model (`model`), test input data (`X_test`), and test output data (`y_test`).
+2. **`next_14_close(self, days)`**:
+   - Predicts the next 14 days' closing stock prices.
+   - `days`: Number of days for which predictions are to be made.
+   - `predictions`: A list to store the predicted closing prices.
+   - `actual`: Takes the last data point from the test set as the initial data point for prediction.
+   - `X_pred`: Predicts the next day's closing price using the model.
+   - `np.roll(actual, shift=-1, axis=0)`: Shifts the `actual` array to remove the first data point and makes space for the predicted value.
+   - Returns: A list of predicted closing prices for the next 14 days.
+3. **`generate_predictions_dataframe(self, predictions, start_date)`**:
+   - Generates a DataFrame with the predicted closing prices.
+   - `predictions`: List of predicted closing prices.
+   - `start_date`: The start date for the predictions.
+   - `a`: Inverses scales the predicted values to their original scale using the `inverse_transform` method of the scaler (`scale`).
+   - `future_dates`: Generates a list of future dates for the next 14 days.
+   - `df`: Creates a DataFrame with the predicted closing prices and corresponding future dates.
+   - Returns: A DataFrame (`predictions_df`) with the predicted closing prices and dates as indices.
+
+#### Usage:
+
+1. **Initialization**:
+   - `stock_predictor = StockPredictor(Model, X_test, y_test)`: Creates an instance of the `StockPredictor` class with the trained model, test input data, and test output data.
+2. **Predict Next 14 Days**:
+   - `predictions = stock_predictor.next_14_close(14)`: Calls the `next_14_close` method to predict the next 14 days' closing prices.
+3. **Generate Predictions DataFrame**:
+   - `start_date = '2024-04-26'`: Specifies the start date for the predictions.
+   - `predictions_df = stock_predictor.generate_predictions_dataframe(predictions, start_date)`: Calls the `generate_predictions_dataframe` method to create a DataFrame (`predictions_df`) with the predicted closing prices and future dates.
+
+The `predictions_df` DataFrame will contain the predicted closing prices for the next 14 days, starting from the specified `start_date`.
+
+```plaintext
+Date        Adj Close
+2024-04-26	484.949829
+2024-04-29	482.075592
+2024-04-30	479.393829
+2024-05-01	476.833557
+2024-05-02	474.357788
+2024-05-03	471.947540
+2024-05-06	469.593719
+2024-05-07	467.291626
+2024-05-08	465.039307
+2024-05-09	462.835449
+2024-05-10	460.679504
+2024-05-13	458.570770
+2024-05-14	456.508575
+2024-05-15	454.492096
+```
 
 
 

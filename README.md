@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project aims to predict stock prices using neural networks. We leverage historical stock price data obtained from Yahoo Finance to train and evaluate our predictive models. Below is a detailed overview of Yahoo Finance and its features that serve as the primary data source for this project.
+This project aims to predict stock prices using neural networks. We leverage historical stock price data obtained from Yahoo Finance to train and evaluate our predictive models. We aim to predict the adjusted close prices for the next 14 days. Below is a detailed overview of Yahoo Finance and its features that serve as the primary data source for this project. We are using Yahoo Finance data sourced from the yfinance module.
 
 ## Yahoo Finance Overview
 
@@ -74,6 +74,8 @@ The dataset contains the following columns/features:
   -------
 
 ## Stock Analysis with Candlestick and Seasonal Decomposition
+
+By using the this kind of StockAnalysis class with its methods, users can gain insights into the stock's price behavior, identify trends, and understand any seasonal patterns present in the data. This can aid in making informed decisions related to investment strategies or market analysis.
 
 To visualize historical stock price data using candlestick charts and perform seasonal decomposition to identify underlying trends, seasonal patterns, and residuals in the stock prices.
 
@@ -223,6 +225,171 @@ X = np.array([scale_input[i-sequence:i] for i in range(sequence, len(scale_input
 y = scale_input[sequence:]
 X.shape, y.shape
 ```
+----
+
+## Exponential Moving Average (EMA) Analysis and Forecasting
+
+Exponential Moving Average (EMA) Analysis and Forecasting is a method used in financial analysis to smooth out price data and identify trends over time. The EMA is a type of moving average that gives more weight to recent prices, making it more responsive to recent price changes compared to the Simple Moving Average (SMA). 
+
+The EMA_Forecaster class facilitates the analysis and forecasting of stock prices trend using Exponential Moving Average (EMA) techniques. It includes the following methods:
+```python
+class EMA_Forecaster:
+    def __init__(self, data):
+        self.data = data
+        self.EMAs = {}
+        
+    def calculate_EMA(self, period):
+        ema_key = f'EMA_{period}'
+        self.EMAs[ema_key] = self.data["Adj Close"].ewm(span=period).mean()
+
+    def plot_EMA(self, periods):
+        fig = go.Figure()
+        for period in periods:
+            ema_key = f'EMA_{period}'
+            fig.add_trace(go.Scatter(x=self.EMAs[ema_key].index, y=self.EMAs[ema_key].values, mode='lines', name=f'EMA {period}'))
+        fig.update_layout(title='EMA for Different Periods', xaxis_title='Date', yaxis_title='EMA')
+        fig.show()
+
+    def forecast_adj_close(self, periods, k, days):
+        forecasted_values = {}
+        for period in periods:
+            ema_key = f'EMA_{period}'
+            EMA_values_forecasted = []
+            current_EMA = self.EMAs[ema_key].values[-1]
+
+            for i in range(days):
+                a = k * self.data["Adj Close"].values[-1] + (1 - k) * current_EMA
+                EMA_values_forecasted.append(a)
+                current_EMA = a
+
+            forecasted_values[period] = np.array(EMA_values_forecasted)
+            fig = go.Figure()
+            fig.add_trace(go.Scatter(x=self.data.index, y=self.data["Adj Close"], mode='lines', name='Actual Adj Close'))
+            fig.add_trace(go.Scatter(x=pd.date_range(start=self.data.index[-1], periods=days, freq='B'), y=EMA_values_forecasted, mode='lines', name=f'Forecasted Adj Close - EMA {period}'))
+            fig.update_layout(title=f'Forecasted Adj Close for Next {days} Days - EMA {period}', xaxis_title='Date', yaxis_title='Adjusted Close Price')
+            fig.show()
+
+        return forecasted_values
+    
+    def print_forecasted_values_as_dataframe(self, forecasted_values):
+        df = pd.DataFrame(forecasted_values)
+        df.index = pd.date_range(start=self.data.index[-1], periods=len(df), freq='B')
+        print("Forecasted Adjusted Close Values:")
+        print(df)
+
+
+# Assuming 'data' is already defined with your dataset
+# You can use your own data here
+# Define the EMA_Forecaster object
+ema_forecaster = EMA_Forecaster(data)
+
+# Calculate EMAs for different periods
+ema_forecaster.calculate_EMA(50)
+ema_forecaster.calculate_EMA(100)
+ema_forecaster.calculate_EMA(150)
+ema_forecaster.calculate_EMA(200)
+ema_forecaster.calculate_EMA(250)
+
+# Forecast adjusted close prices for next 14 days
+forecasted_values = ema_forecaster.forecast_adj_close([50, 100, 150, 200, 250], 0.5, 14)
+
+# Print forecasted values as a dataframe
+ema_forecaster.print_forecasted_values_as_dataframe(forecasted_values)
+```
+#### Interpretation of code:
+
+1. **`__init__(self, data)`**:
+   - Constructor method initializes the `EMA_Forecaster` object with historical stock price data (`data`).
+
+2. **`calculate_EMA(self, period)`**:
+   - Calculates the EMA for a specified period and stores the results in the `EMAs` dictionary.
+
+3. **`plot_EMA(self, periods)`**:
+   - Plots the EMA for different periods using Plotly.
+   - `periods`: List of EMA periods to plot.
+
+4. **`forecast_adj_close(self, periods, k, days)`**:
+   - Forecasts adjusted close prices for the next `days` using EMA.
+   - `periods`: List of EMA periods to use for forecasting.
+   - `k`: Smoothing factor for EMA calculation.
+   - `days`: Number of days to forecast.
+
+5. **`print_forecasted_values_as_dataframe(self, forecasted_values)`**:
+   - Prints the forecasted adjusted close values as a DataFrame.
+   - `forecasted_values`: Dictionary containing forecasted values for different EMA periods.
+
+#### Usage:
+##### EMA Forecasting Formula
+
+Exponential Moving Average (EMA) forecasting is done using the following formula:
+
+\[
+F_{t+1} = k \times X_t + (1 - k) \times F_t
+\]
+
+Where:
+- \( F_{t+1} \) is the forecast for the next day.
+- \( F_t \) is the forecast for today.
+- \( X_t \) is the close price of today.
+- \( k \) is the smoothing factor.
+
+This formula calculates the forecasted value for the next day based on the close price of the current day and the previous forecasted value. The smoothing factor (\( k \)) determines the weight given to the current close price and the previous forecasted value in the calculation. A higher smoothing factor places more weight on recent data, making the forecast more responsive to recent price changes, while a lower smoothing factor gives more weight to historical data, resulting in a smoother forecast.
+
+- First, the `EMA_Forecaster` object is instantiated with historical stock price data.
+- EMAs are calculated for different periods ( 50, 100, 150, 200, and 250).
+- Adjusted close prices are forecasted for the next 14 days using EMA with specified periods and a smoothing factor.
+- The forecasted values are printed as a DataFrame for further analysis.
+
+This class facilitates the analysis of EMA trends, forecasting future prices, and provides a structured format for examining the forecasted values.
+```output
+| Date       | EMA 50     | EMA 100    | EMA 150    | EMA 200    | EMA 250    |
+|------------|------------|------------|------------|------------|------------|
+| 2024-04-25 | 461.586391 | 443.041619 | 427.107454 | 414.189333 | 403.860232 |
+| 2024-04-26 | 451.483198 | 442.210812 | 434.243729 | 427.784669 | 422.620118 |
+| 2024-04-29 | 446.431601 | 441.795408 | 437.811867 | 434.582337 | 432.000062 |
+| 2024-04-30 | 443.905803 | 441.587707 | 439.595936 | 437.981171 | 436.690033 |
+| 2024-05-01 | 442.642904 | 441.483856 | 440.487970 | 439.680588 | 439.035019 |
+| 2024-05-02 | 442.011454 | 441.431930 | 440.933988 | 440.530296 | 440.207512 |
+| 2024-05-03 | 441.695730 | 441.405968 | 441.156996 | 440.955151 | 440.793758 |
+| 2024-05-06 | 441.537867 | 441.392986 | 441.268501 | 441.167578 | 441.086882 |
+| 2024-05-07 | 441.458936 | 441.386496 | 441.324253 | 441.273791 | 441.233443 |
+| 2024-05-08 | 441.419470 | 441.383250 | 441.352129 | 441.326898 | 441.306724 |
+| 2024-05-09 | 441.399738 | 441.381628 | 441.366067 | 441.353451 | 441.343364 |
+| 2024-05-10 | 441.389871 | 441.380816 | 441.373036 | 441.366728 | 441.361685 |
+| 2024-05-13 | 441.384938 | 441.380411 | 441.376520 | 441.373367 | 441.370845 |
+| 2024-05-14 | 441.382471 | 441.380208 | 441.378263 | 441.376686 | 441.375425 |
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### Data Splitting
 
 In the following code snippet, we split the preprocessed data (`X` and `y`) into training and testing sets using the `train_test_split` function:
@@ -237,6 +404,16 @@ X_test shape:  (484, 100, 1)
 y_train shape: (1933, 1)
 y_test shape:  (484, 1)
 ```
+----
+
+
+
+
+
+
+
+
+
 
 ### Model Architecture
 

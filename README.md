@@ -344,6 +344,7 @@ This class facilitates the analysis of EMA trends, forecasting future prices, an
 
 ```
 
+
 ### Data PreProcessing
 
 In this below code we are considering the first 100 element in X And next 101 is going into y = response for next iteration 2 -101 append into X in y we will append 102 element.

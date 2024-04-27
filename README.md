@@ -345,6 +345,13 @@ This class facilitates the analysis of EMA trends, forecasting future prices, an
 ```
 ![EMA50 Plot](https://raw.githubusercontent.com/PrabhuTeja19/Future-Stock-Price-Prediction/main/ema50.png) ![EMA50_1 Plot](https://raw.githubusercontent.com/PrabhuTeja19/Future-Stock-Price-Prediction/main/ema50_1.png) 
 
+![EMA100 Plot](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/ema_100.png) ![EMA100_1 Plot](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/ema_100_1.png)
+
+![EMA150 Plot](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/ema_150.png) ![EMA150_1 Plot](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/ema_150_1.png)
+
+![EMA200 Plot](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/ema_200.png) ![EMA200_1 Plot](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/ema_200_1.png)
+
+![EMA250 Plot](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/ema_250.png) ![EMA250_1 Plot](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/ema_250.png)
 
 
 

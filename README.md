@@ -343,7 +343,10 @@ This class facilitates the analysis of EMA trends, forecasting future prices, an
 | 2024-05-14 | 441.382471 | 441.380208 | 441.378263 | 441.376686 | 441.375425 |
 
 ```
----
+![EMA50 Plot](https://raw.githubusercontent.com/PrabhuTeja19/Future-Stock-Price-Prediction/main/ema50.png) ![EMA50_1 Plot](https://raw.githubusercontent.com/PrabhuTeja19/Future-Stock-Price-Prediction/main/ema50_1.png) 
+
+
+
 
 ### Data PreProcessing
 

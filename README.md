@@ -8,7 +8,7 @@ This project aims to predict stock prices using neural networks. We leverage his
 ## Yahoo Finance Overview
 
 Yahoo Finance is a popular and widely used financial platform that offers a comprehensive range of financial information, tools, and services to investors, traders, and financial professionals. It provides access to real-time stock quotes, interactive charts, financial news, portfolio management tools, and historical stock price data for thousands of publicly traded companies worldwide.
-
+we are consindering only meta stock.
 ### Key Features of Yahoo Finance:
 
 1. **Real-Time Stock Quotes**: 

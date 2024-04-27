@@ -4,11 +4,11 @@ project done by: Prabhu Teja Gande and Jai Shankar Prakash Komakula
 ## Overview
 
 This project aims to predict stock prices using neural networks. We leverage historical stock price data obtained from Yahoo Finance to train and evaluate our predictive models. We aim to predict the adjusted close prices for the next 14 days. Below is a detailed overview of Yahoo Finance and its features that serve as the primary data source for this project. We are using Yahoo Finance data sourced from the yfinance module.
-
+we are consindering only meta stock.
 ## Yahoo Finance Overview
 
 Yahoo Finance is a popular and widely used financial platform that offers a comprehensive range of financial information, tools, and services to investors, traders, and financial professionals. It provides access to real-time stock quotes, interactive charts, financial news, portfolio management tools, and historical stock price data for thousands of publicly traded companies worldwide.
-we are consindering only meta stock.
+
 ### Key Features of Yahoo Finance:
 
 1. **Real-Time Stock Quotes**: 

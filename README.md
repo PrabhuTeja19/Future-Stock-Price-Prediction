@@ -1,4 +1,5 @@
 # Future-Stock-Price-Prediction
+project done by: Prabhu Teja Gande and Jai Shankar Prakash Komakula
 
 ## Overview
 
@@ -183,10 +184,6 @@ stock_analysis = StockAnalysis(stock, start_date, end_date)
 Plot_graph = stock_analysis.visualize_data()
 data = stock_analysis.download_data()
 ### Graph Interpretation:
-<iframe src="https://drive.google.com/file/d/your_file_id/view" width="100%" height="600px"></iframe>
-
-
-
 
 #### Candlestick Chart (Metastock):
 
@@ -211,24 +208,6 @@ data = stock_analysis.download_data()
   - Represents the random or irregular fluctuations in the stock prices after removing the trend and seasonal components.
 
 
-
-
-### Data PreProcessing
-
-In the following code snippet, we perform the data preprocessing steps required for preparing the dataset for the stock price prediction model:
-
-1. We consider the first 100 elements in `X`.
-2. The next element (101st) is assigned to `y` as the response variable.
-3. For the next iteration:
-   - We append elements from index 1 to 101 into `X`.
-   - We append the 102nd element into `y`.
-   
-```python
-sequence = 100
-X = np.array([scale_input[i-sequence:i] for i in range(sequence, len(scale_input))])
-y = scale_input[sequence:]
-X.shape, y.shape
-```
 ----
 
 ## Exponential Moving Average (EMA) Analysis and Forecasting
@@ -365,38 +344,43 @@ This class facilitates the analysis of EMA trends, forecasting future prices, an
 
 ```
 
+### Data PreProcessing
 
+In this below code we are considering the first 100 element in X And next 101 is going into y = response for next iteration 2 -101 append into X in y we will append 102 element.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+1. We consider the first 100 elements in `X`.
+2. The next element (101st) is assigned to `y` as the response variable.
+3. For the next iteration:
+   - We append elements from index 1 to 101 into `X`.
+   - We append the 102nd element into `y`.
+   
+```python
+#Scaling the data
+scale = MinMaxScaler(feature_range= (0,1))
+scale_input = scale.fit_transform(input)
+scale_input
+--
+sequence = 100
+X = np.array([scale_input[i-sequence:i] for i in range(sequence, len(scale_input))])
+y = scale_input[sequence:]
+X.shape, y.shape
+```
+```output
+array([[0.        ],
+       [0.00426065],
+       [0.0077158 ],
+       ...,
+       [0.93370952],
+       [0.92819238],
+       [0.81759515]])
+((2417, 100, 1), (2417, 1))
+```
 
 ### Data Splitting
 
-In the following code snippet, we split the preprocessed data (`X` and `y`) into training and testing sets using the `train_test_split` function:
+Data splitting is a crucial step in machine learning model development, especially when training predictive models like neural networks. The purpose of splitting the data into training and testing sets is to evaluate the performance of the model on unseen data.
+
+In the following code snippet, we split the preprocessed data (`X` and `y`) into training and testing sets using the `train_test_split` function. We kept shuffle = False, cause we dealing with time series data:
 
 ```python
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, shuffle=False)
@@ -410,16 +394,11 @@ y_test shape:  (484, 1)
 ```
 ----
 
+### Neural Network Implemenation:
 
+The "Neural Network Implementation" method refers to the process of building, training, and utilizing neural networks for various tasks, such as classification, regression, pattern recognition, and prediction. The purpose of implementing neural networks is to leverage their ability to learn complex patterns and relationships from data, thereby enabling the model to make predictions or decisions based on input data.
 
-
-
-
-
-
-
-
-### Model Architecture
+This implementation allows for the development of intelligent systems that can learn from data, adapt to changing environments, and perform a wide range of tasks across different domains.
 
 In the following code snippet, we define the architecture of the neural network model using the `Sequential` API from Keras:
 

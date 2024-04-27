@@ -183,7 +183,8 @@ stock_analysis = StockAnalysis(stock, start_date, end_date)
 Plot_graph = stock_analysis.visualize_data()
 data = stock_analysis.download_data()
 ### Graph Interpretation:
-You can download and view the candlestick plot [here](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/candlestick_plot.html).
+<iframe src="https://drive.google.com/file/d/your_file_id/view" width="100%" height="600px"></iframe>
+
 
 
 

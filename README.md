@@ -450,8 +450,29 @@ from tensorflow.keras.losses import MeanAbsolutePercentageError
 
 mape_metric = MeanAbsolutePercentageError()
 Model.compile(optimizer="adam", loss="mean_squared_error", metrics=[mape_metric])
-Model.fit(X_train, y_train, batch_size=32, epochs=15, validation_data=(X_test, y_test))
+Model=Model.fit(X_train, y_train, batch_size=32, epochs=15, validation_data=(X_test, y_test))
 ```
+### Training and Validation loss:
+This code snippet compares the training and validation loss for an LSTM model across different epochs.
+
+```python
+train_loss = Model.history['loss']
+val_loss = Model.history['val_loss']
+epochs = range(1, len(train_loss) + 1)
+
+fig = go.Figure()
+fig.add_trace(go.Scatter(x=list(epochs), y=train_loss, mode='lines+markers', name='Training Loss', marker=dict(symbol='circle')))
+fig.add_trace(go.Scatter(x=list(epochs), y=val_loss, mode='lines+markers', name='Validation Loss', marker=dict(symbol='x')))
+
+fig.update_layout(title='Training and Validation Loss',
+                  xaxis_title='Epoch',
+                  yaxis_title='Loss')
+
+fig.show()
+```
+![conclusion](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/raw/main/conclusion.jpg)
+
+----
 The neural network model for stock price prediction is compiled and trained with the following configuration:
 - **Optimizer**: 
   - `adam` optimizer is used for optimizing the model parameters during training.
@@ -494,7 +515,7 @@ class StockPredictor:
         return df
 
 
-stock_predictor = StockPredictor(Model, X_test, y_test)
+stock_predictor = StockPredictor(Model.model, X_test, y_test)
 predictions = stock_predictor.next_14_close(14)
 start_date = '2024-04-26'
 predictions_df = stock_predictor.generate_predictions_dataframe(predictions, start_date)
@@ -555,8 +576,8 @@ Date        Adj Close
 2024-05-14	456.508575
 2024-05-15	454.492096
 ```
-
-
+![Final Plot](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/raw/main/final_plot.jpg)
+![Final Plot1](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/raw/main/final_plot1.jpg)
 
 
 ## Conclusion

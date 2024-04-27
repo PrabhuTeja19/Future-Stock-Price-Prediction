@@ -581,10 +581,57 @@ Date        Adj Close
 2024-05-14	456.508575
 2024-05-15	454.492096
 ```
+### Predicting next 14 days stock price:
+```python
+class StockPredictor:
+    def _init_(self, model, X_test, y_test):
+        self.model = model
+        self.X_test = X_test
+        self.y_test = y_test
+
+    def next_14_close(self, days):
+        predictions = []
+        actual = self.X_test[-1]
+        for i in range(days):
+            X_pred = self.model.predict(np.expand_dims(actual, axis=0))
+            predictions.append(X_pred[0][0])
+            print(predictions)
+            actual = np.roll(actual, shift=-1, axis=0)
+            actual[-1] = X_pred[0][0]
+        return predictions
+
+    def generate_predictions_dataframe(self, predictions, start_date):
+        a = scale.inverse_transform(np.array(predictions).reshape(-1, 1))
+        future_dates = pd.date_range(start=start_date, periods=len(predictions), freq='B').tolist()
+        df = pd.DataFrame({'Adj Close': a.reshape(-1)}, index=future_dates)
+        return df
+
+
+stock_predictor = StockPredictor(Model.model, X_test, y_test)
+predictions = stock_predictor.next_14_close(20)
+start_date = '2024-04-23'
+predictions_df = stock_predictor.generate_predictions_dataframe(predictions, start_date)
+
+# Combine actual and forecasted data
+combined_data = pd.concat([data[['Adj Close']], predictions_df], axis=0)
+combined_data
+
+# Plot actual and forecasted prices
+fig = go.Figure()
+fig.add_trace(go.Scatter(x=data.index, y=data['Adj Close'], mode='lines', name='Actual Price', line=dict(color='light blue')))
+fig.add_trace(go.Scatter(x=predictions_df.index, y=predictions_df['Adj Close'], mode='lines', name='Forecasted Price', line=dict(color='green')))
+fig.update_layout(title='Actual vs Forecasted Prices', xaxis_title='Date', yaxis_title='Adjusted Close Price',
+                  xaxis=dict(type='date', tickformat='%Y-%m-%d', range=[data.index[0], predictions_df.index[-1]]))
+fig.show()
+```
+
 ![Final Plot](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/raw/main/final_plot.jpg)
 ![Final Plot1](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/raw/main/final_plot1.jpg)
 
+#### Interpretation:
+- By considering the past adjust closed price trend and by performing walk forward optimization, we are predicting the next 14 days of adjust close price of stock
 
+-----
 ## Conclusion
 
 After thorough analysis and comparison between the Exponential Moving Average (EMA) Analysis and Forecasting method and the StockPredictor Class with Neural Networks, it is evident that the StockPredictor Class utilizing neural networks outperforms EMA in terms of forecasting accuracy and adaptability.

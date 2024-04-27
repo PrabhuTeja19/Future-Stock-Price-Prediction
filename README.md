@@ -352,9 +352,14 @@ This class facilitates the analysis of EMA trends, forecasting future prices, an
 ![EMA200 Plot](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/ema_200.png) ![EMA200_1 Plot](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/ema_200_1.png)
 
 ![EMA250 Plot](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/ema_250.png) ![EMA250_1 Plot](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/ema_250.png)
+#### Interpretation:
+EMA 50 has the lowest MAE, RMSE, and MAPE among all EMAs, indicating the best accuracy.
+EMA 100 follows closely behind EMA 50 in terms of accuracy.
+EMA 150, EMA 200, and EMA 250 have progressively higher MAE, RMSE, and MAPE values, indicating decreasing accuracy.
+Therefore, based on the provided accuracy metrics, EMA 50 performs the best among the tested EMAs for forecasting the adjusted close prices.
+But we can clearly observed EMA_150 is determaining which trend the price is moving in future.
 
-
-
+------
 ### Data PreProcessing
 
 In this below code we are considering the first 100 element in X And next 101 is going into y = response for next iteration 2 -101 append into X in y we will append 102 element.

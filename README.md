@@ -1,5 +1,5 @@
 # Future-Stock-Price-Prediction
-project done by: Prabhu Teja Gande and Jai Shankar Prakash Komakula
+Project done by: Prabhu Teja Gande and Jai Shankar Prakash Komakula
 
 ## Overview
 
@@ -187,7 +187,7 @@ data = stock_analysis.download_data()
 
 #### Candlestick Chart (Metastock):
 
-![Metastock Candlestick Chart](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/Candlestick.png)
+![Candlestick](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/Candlestick.png)
 
 - **Yearwise Candleplot Data**: 
   - The candlestick chart displays the open, high, low, and adjusted close prices of the 'META' stock for each year from 2016 to 2024.

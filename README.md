@@ -196,7 +196,7 @@ data = stock_analysis.download_data()
   
 #### Seasonal Decomposition:
 
-![Seasonal Decomposition](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/Decomposition%20Metastock)
+![Seasonal Decomposition](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/DecompositionMets.png)
 
 - **Original Data**: 
   - Represents the original adjusted close prices of the stock.

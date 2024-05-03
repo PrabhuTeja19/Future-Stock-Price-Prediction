@@ -53,7 +53,7 @@ Yahoo Finance is a popular and widely used financial platform that offers a comp
 -----
 ## Dataset Preview
 
-![Dataset Preview](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/raw/main/DATASET.png)
+![DATASET](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/assets/160795138/bad49181-894e-462c-a979-3bcbfaf30842)
 
 ## Data Dictionary
 
@@ -187,7 +187,7 @@ data = stock_analysis.download_data()
 
 #### Candlestick Chart (Metastock):
 
-![Candlestick](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/Candlestick.png)
+![Candlestick](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/assets/160795138/07113c53-3cd1-43d0-859e-42e1e4e2f071)
 
 - **Yearwise Candleplot Data**: 
   - The candlestick chart displays the open, high, low, and adjusted close prices of the 'META' stock for each year from 2016 to 2024.
@@ -196,7 +196,7 @@ data = stock_analysis.download_data()
   
 #### Seasonal Decomposition:
 
-![DecompositionMets](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/DecompositionMets.png)
+![DecompositionMets](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/assets/160795138/a37a60fb-73ac-445e-bdea-73a0f7d8d69f)
 
 - **Original Data**: 
   - Represents the original adjusted close prices of the stock.
@@ -344,16 +344,17 @@ This class facilitates the analysis of EMA trends, forecasting future prices, an
 | 2024-05-14 | 441.382471 | 441.380208 | 441.378263 | 441.376686 | 441.375425 |
 
 ```
-![EMA50 Plot](https://raw.githubusercontent.com/PrabhuTeja19/Future-Stock-Price-Prediction/main/ema50.png) ![EMA50_1 Plot](https://raw.githubusercontent.com/PrabhuTeja19/Future-Stock-Price-Prediction/main/ema50_1.png) 
+![ema50](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/assets/160795138/6eeb4ece-39ac-4a5f-b800-119031395a1e)
+![ema50_1](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/assets/160795138/4699fcf6-eedc-4580-94ac-1ae3cacbc22e)
+![ema_100](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/assets/160795138/e08ba3b5-71c2-4b51-b3aa-9ea493cceba7) 
+![ema_100_1](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/assets/160795138/95e1ccb2-0458-440b-acfc-1252306b4b5c)
+![ema_150](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/assets/160795138/519ca671-ff86-4677-b4ea-9caee5bf144a)
+![ema_150_1](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/assets/160795138/307bdec2-c5e6-41cd-8747-fea77170de80)
+![ema_200](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/assets/160795138/6e7a6556-637f-43e3-a124-9c2a514886e8)
+![ema_200_1](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/assets/160795138/56b59e68-f788-4e1d-88d8-98e38f0edf98)
+![ema_250](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/assets/160795138/992e8c90-e873-4284-996b-5551f960debe)
+![ema_250_1](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/assets/160795138/c7308a7f-084d-44b9-8aeb-50c95dbf8dbd)
 
-![EMA 100](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/ema_100.png)
-![EMA 100 1](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/ema_100_1.png)
-![EMA 150](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/ema_150.png)
-![EMA 150 1](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/ema_150_1.png)
-![EMA 200](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/ema_200.png)
-![EMA 200 1](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/ema_200_1.png)
-![EMA 250](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/ema_250.png)
-![EMA 250 1](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/blob/main/ema_250_1.png)
 #### Interpretation:
 EMA 50 has the lowest MAE, RMSE, and MAPE among all EMAs, indicating the best accuracy.
 EMA 100 follows closely behind EMA 50 in terms of accuracy.
@@ -477,7 +478,7 @@ fig.update_layout(title='Training and Validation Loss',
 
 fig.show()
 ```
-![conclusion](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/raw/main/conclusion.jpg)
+![conclusion](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/assets/160795138/5df02103-d86e-4796-898b-961d87fb3899)
 
 ----
 The neural network model for stock price prediction is compiled and trained with the following configuration:
@@ -627,9 +628,8 @@ fig.update_layout(title='Actual vs Forecasted Prices', xaxis_title='Date', yaxis
 fig.show()
 ```
 
-![Final Plot](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/raw/main/final_plot.jpg)
-![Final Plot1](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/raw/main/final_plot1.jpg)
-
+![final_plot](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/assets/160795138/6519b08d-c781-4fb7-9bbb-eaefaa0ad22a)
+![final_plot1](https://github.com/PrabhuTeja19/Future-Stock-Price-Prediction/assets/160795138/63d60e6c-c43e-403c-a0e0-d9e509d4cf55)
 #### Interpretation:
 - By considering the past adjust closed price trend and by performing walk forward optimization, we are predicting the next 14 days of adjust close price of stock
 

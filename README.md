@@ -322,8 +322,9 @@ This formula calculates the forecasted value for the next day based on the close
 - EMAs are calculated for different periods ( 50, 100, 150, 200, and 250).
 - Adjusted close prices are forecasted for the next 14 days using EMA with specified periods and a smoothing factor.
 - The forecasted values are printed as a DataFrame for further analysis.
-
+- calculated MAPE,MAE,RMSE for {EMA(50):(9.44%,47.54,52.12), EMA(100):(9.93%,50.09,55.31), EMA(150):(10.43%,52.33,58.40), EMA(200):(10.72%,54.16,61.70), EMA(250):(11.01%,63.36,55.64)} as it results
 This class facilitates the analysis of EMA trends, forecasting future prices, and provides a structured format for examining the forecasted values.
+
 ```output
 | Date       | EMA 50     | EMA 100    | EMA 150    | EMA 200    | EMA 250    |
 |------------|------------|------------|------------|------------|------------|
